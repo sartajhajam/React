@@ -1,3 +1,6 @@
+import { useState } from "react";
+
+
 function App() {
   return (
     <div style={{ background: "#dcdde1", height: "100vh" }}>
@@ -6,7 +9,7 @@ function App() {
           <PostComponent />
         </div>
         <div>
-          <PostComponent />
+          <ToggleMessage />
         </div>
       </div>
     </div>
@@ -21,6 +24,21 @@ const style = {
   borderColor: "gray",
   padding: 20,
 };
+
+// renders the toggle message component
+const ToggleMessage = () => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    return (
+        <div>
+            <button onClick={() => setIsVisible(!isVisible)}>
+                Toggle Message
+            </button>
+            {isVisible && <p>This message is conditionally rendered!</p>}
+        </div>
+    );
+};
+
 
 function PostComponent() {
   return (
@@ -42,7 +60,7 @@ function PostComponent() {
           <div>12 M</div>
         </div>
       </div>
-      <div style={{ fontSize: 10 }}>
+      <div style={{ fontSize: 12 }}>
         What to know how to win big ? Check out these folks won 6000 $ in
         bounties ?
       </div>
@@ -51,3 +69,4 @@ function PostComponent() {
 }
 
 export default App;
+
