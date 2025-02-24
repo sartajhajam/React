@@ -1,4 +1,30 @@
-import { useState } from "react";
+import { useState , useEffect } from "react";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  function increaseCount() {
+    console.log("increaseCount called " + count);
+    setCount(function(currentValue){
+      return currentValue + 1;
+    });
+    setCount(count + 1);
+  }
+  
+  useEffect(function() => {
+    console.log("above setinterval ");
+    setInterval(increaseCount, 1000);
+  }, []);
+
+  return (
+    <div>
+      {count}
+    </div>
+  );
+}
+
+
+/* import { useState } from "react";
 import { PostComponent } from "./Post";
 
 function App() {
@@ -36,3 +62,4 @@ function App() {
 
 export default App
 
+ */
