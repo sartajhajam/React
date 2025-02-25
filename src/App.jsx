@@ -38,29 +38,29 @@ export default App;
 
 // When rendering lists, each item should have a unique key prop for React to track changes efficiently.
 
-import React from 'react';
+// import React from 'react';
 
-const ItemList = ({ items }) => {
-    return (
-        <ul>
-            {items.map(item => (
-                <li key={item.id}>{item.name}</li>
-            ))}
-        </ul>
-    );
-};
+// const ItemList = ({ items }) => {
+//     return (
+//         <ul>
+//             {items.map(item => (
+//                 <li key={item.id}>{item.name}</li>
+//             ))}
+//         </ul>
+//     );
+// };
 
-const App = () => {
-    const items = [
-        { id: 1, name: 'Item 1' },
-        { id: 2, name: 'Item 2' },
-        { id: 3, name: 'Item 3' },
-    ];
+// const App = () => {
+//     const items = [
+//         { id: 1, name: 'Item 1' },
+//         { id: 2, name: 'Item 2' },
+//         { id: 3, name: 'Item 3' },
+//     ];
 
-    return <ItemList items={items} />;
-};
+//     return <ItemList items={items} />;
+// };
 
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 
 function MyComponent() {
   const [count, setCount] = useState(0);
@@ -83,6 +83,43 @@ function MyComponent() {
       <button onClick={() => setCount(count + 1)}>Increment</button>
     </div>
   );
+} */
+
+// export default App;
+
+import React from 'react';
+
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, info) {
+        console.error("Error caught:", error, info);
+    }
+
+    render() {
+        if (this.state.hasError) {
+            return <h1>Something went wrong.</h1>;
+        }
+
+        return this.props.children; 
+    }
 }
 
-export default App;
+const BuggyComponent = () => {
+    throw new Error("I crashed!");
+};
+
+const App = () => {
+    return (
+        <ErrorBoundary>
+            <BuggyComponent />
+        </ErrorBoundary>
+    );
+};
